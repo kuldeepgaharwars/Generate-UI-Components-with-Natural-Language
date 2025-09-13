@@ -17,7 +17,7 @@ export default function DocsPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <Card>
+            <Card className="p-4">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <ZapIcon className="w-5 h-5 text-primary" />
@@ -36,7 +36,7 @@ export default function DocsPage() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="p-4">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <BookOpenIcon className="w-5 h-5 text-primary" />
@@ -79,7 +79,7 @@ export default function DocsPage() {
                       </div>
                     </div>
 
-                    <div>
+                    <div className="mb-4">
                       <h3 className="font-semibold text-red-600 mb-2">❌ Avoid:</h3>
                       <div className="bg-red-50 dark:bg-red-950/20 p-4 rounded-md space-y-2">
                         <p className="text-sm">"Make a card" (too vague)</p>
@@ -97,7 +97,7 @@ export default function DocsPage() {
                 Styling Options
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <Card>
+                <Card className="p-4">
                   <CardHeader>
                     <CardTitle className="text-lg">Framework</CardTitle>
                   </CardHeader>
@@ -110,7 +110,7 @@ export default function DocsPage() {
                   </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="p-4">
                   <CardHeader>
                     <CardTitle className="text-lg">Styling</CardTitle>
                   </CardHeader>
@@ -123,7 +123,7 @@ export default function DocsPage() {
                   </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="p-4">
                   <CardHeader>
                     <CardTitle className="text-lg">UI Library</CardTitle>
                   </CardHeader>
@@ -143,7 +143,7 @@ export default function DocsPage() {
                 <DownloadIcon className="w-6 h-6 text-primary" />
                 Export Options
               </h2>
-              <Card>
+              <Card className="p-4">
                 <CardContent className="pt-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
@@ -174,7 +174,7 @@ export default function DocsPage() {
                 <ShieldIcon className="w-6 h-6 text-primary" />
                 Accessibility
               </h2>
-              <Card>
+              <Card className="p-4 pt-0">
                 <CardContent className="pt-6">
                   <p className="mb-4">All generated components follow accessibility best practices:</p>
                   <ul className="list-disc list-inside space-y-2 text-sm">

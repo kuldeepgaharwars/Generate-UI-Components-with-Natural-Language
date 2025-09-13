@@ -3,6 +3,86 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes scale {
+  from { transform: scale(0.95); }
+  to { transform: scale(1); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-fadeInLeft {
+  animation: fadeInLeft 0.5s ease-out forwards;
+}
+
+.animate-fadeInRight {
+  animation: fadeInRight 0.5s ease-out forwards;
+}
+
+.animate-pulse {
+  animation: pulse 2s infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
+}
+
+.animate-shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+.animate-bounce {
+  animation: bounce 1.5s ease-in-out infinite;
+}
+
+.animate-scale {
+  animation: scale 0.5s ease-out forwards;
+}
+
+.bg-grid-white\/10 {
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
 :root {
   /* Updated color tokens to match design brief with green theme */
   --background: oklch(1 0 0); /* #ffffff - Main background */

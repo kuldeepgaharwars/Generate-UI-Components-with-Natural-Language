@@ -2,6 +2,11 @@ import { generateText } from "ai"
 import { groq } from "@ai-sdk/groq"
 import { type NextRequest, NextResponse } from "next/server"
 
+// Check if GROQ API key is available
+if (!process.env.GROQ_API_KEY) {
+  console.error("GROQ_API_KEY is not defined in environment variables")
+}
+
 interface GenerationOptions {
   framework: "react" | "vue" | "svelte"
   styling: "tailwind" | "css-modules" | "styled-components"
@@ -50,7 +55,7 @@ Return ONLY the component code, no explanations or markdown formatting.`
       model: groq("llama-3.3-70b-versatile"),
       system: systemPrompt,
       prompt: `Create a ${options.framework} component: ${prompt}`,
-      maxTokens: 2000,
+      // maxTokens: 000,
       temperature: 0.7,
     })
 

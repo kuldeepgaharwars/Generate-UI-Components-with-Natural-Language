@@ -21,7 +21,6 @@ import {
   DownloadIcon,
 } from "lucide-react"
 import { CodeEditor } from "@/components/code-editor"
-import { ComponentPreview } from "@/components/component-preview"
 import { ExportModal } from "@/components/export-modal"
 
 interface SavedComponent {
@@ -139,10 +138,10 @@ export function ComponentLibrary() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <Card>
-          <CardContent className="p-4">
+        <Card className="animate-fadeIn" style={{animationDelay: '0.1s'}}>
+          <CardContent className="p-4 hover:bg-primary/5 transition-all duration-300">
             <div className="flex items-center gap-2">
-              <CodeIcon className="w-5 h-5 text-primary" />
+              <CodeIcon className="w-5 h-5 text-primary animate-pulse" />
               <div>
                 <p className="text-2xl font-bold">{savedComponents.length}</p>
                 <p className="text-sm text-muted-foreground">Total Components</p>
@@ -151,10 +150,10 @@ export function ComponentLibrary() {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardContent className="p-4">
+        <Card className="animate-fadeIn" style={{animationDelay: '0.2s'}}>
+          <CardContent className="p-4 hover:bg-primary/5 transition-all duration-300">
             <div className="flex items-center gap-2">
-              <FolderIcon className="w-5 h-5 text-primary" />
+              <FolderIcon className="w-5 h-5 text-primary animate-pulse" />
               <div>
                 <p className="text-2xl font-bold">{categories.length - 1}</p>
                 <p className="text-sm text-muted-foreground">Categories</p>
@@ -163,10 +162,10 @@ export function ComponentLibrary() {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardContent className="p-4">
+        <Card className="animate-fadeIn" style={{animationDelay: '0.3s'}}>
+          <CardContent className="p-4 hover:bg-primary/5 transition-all duration-300">
             <div className="flex items-center gap-2">
-              <TagIcon className="w-5 h-5 text-primary" />
+              <TagIcon className="w-5 h-5 text-primary animate-pulse" />
               <div>
                 <p className="text-2xl font-bold">{new Set(savedComponents.flatMap((comp) => comp.tags)).size}</p>
                 <p className="text-sm text-muted-foreground">Unique Tags</p>
@@ -191,12 +190,16 @@ export function ComponentLibrary() {
         </Card>
       ) : (
         <div className={viewMode === "grid" ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" : "space-y-4"}>
-          {filteredComponents.map((component) => (
-            <Card key={component.id} className="group hover:shadow-lg transition-shadow">
-              <CardHeader className="pb-3">
+          {filteredComponents.map((component, index) => (
+            <Card 
+              key={component.id} 
+              className="group hover:shadow-lg transition-all duration-300 hover:translate-y-[-5px] animate-fadeIn border-primary/10 hover:border-primary/30" 
+              style={{animationDelay: `${0.1 + index * 0.05}s`}}
+            >
+              <CardHeader className="pb-3 bg-gradient-to-r from-primary/5 to-transparent">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <CardTitle className="text-lg mb-1">{component.name}</CardTitle>
+                    <CardTitle className="text-lg mb-1 bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text">{component.name}</CardTitle>
                     <p className="text-sm text-muted-foreground line-clamp-2">{component.description}</p>
                   </div>
                 </div>
@@ -242,36 +245,27 @@ export function ComponentLibrary() {
                         <DialogTitle>{component.name}</DialogTitle>
                       </DialogHeader>
 
-                      <div className="grid lg:grid-cols-2 gap-6 overflow-hidden">
-                        <div className="space-y-4">
-                          <div>
-                            <h4 className="font-medium mb-2">Description</h4>
-                            <p className="text-sm text-muted-foreground">{component.description}</p>
-                          </div>
+                      <div className="space-y-6 overflow-y-auto max-h-[70vh]">
+                        <div>
+                          <h4 className="font-medium mb-2">Description</h4>
+                          <p className="text-sm text-muted-foreground">{component.description}</p>
+                        </div>
 
-                          <div>
-                            <h4 className="font-medium mb-2">Tags</h4>
-                            <div className="flex flex-wrap gap-1">
-                              {component.tags.map((tag) => (
-                                <Badge key={tag} variant="secondary" className="text-xs">
-                                  {tag}
-                                </Badge>
-                              ))}
-                            </div>
-                          </div>
-
-                          <div>
-                            <h4 className="font-medium mb-2">Code</h4>
-                            <div className="max-h-[400px] overflow-auto">
-                              <CodeEditor code={component.code} language="typescript" />
-                            </div>
+                        <div>
+                          <h4 className="font-medium mb-2">Tags</h4>
+                          <div className="flex flex-wrap gap-1">
+                            {component.tags.map((tag) => (
+                              <Badge key={tag} variant="secondary" className="text-xs">
+                                {tag}
+                              </Badge>
+                            ))}
                           </div>
                         </div>
 
                         <div>
-                          <h4 className="font-medium mb-2">Preview</h4>
-                          <div className="border rounded-lg p-4 bg-background">
-                            <ComponentPreview code={component.code} />
+                          <h4 className="font-medium mb-2">Code</h4>
+                          <div className="max-h-[400px] overflow-auto">
+                            <CodeEditor code={component.code} language="typescript" />
                           </div>
                         </div>
                       </div>
