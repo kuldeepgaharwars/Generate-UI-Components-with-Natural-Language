@@ -1,8 +1,12 @@
+"use client"
+
 import { Header } from "@/components/header"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ExternalLinkIcon, CopyIcon } from "lucide-react"
+import { copyToClipboard } from "@/lib/utils/code-actions"
+import { useToast } from "@/components/ui/use-toast"
 
 const examples = [
   {
@@ -64,24 +68,29 @@ const examples = [
 const categories = ["All", "Landing Page", "E-commerce", "Dashboard", "Forms", "Marketing"]
 
 export default function ExamplesPage() {
+  const { toast } = useToast()
   return (
     <div className="min-h-screen bg-background">
       <Header />
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-8">
-            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Component Examples</h1>
-            <p className="text-lg text-muted-foreground">
+          <div className="mb-8 animate-fadeIn">
+            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4 relative">
+              <span className="bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text animate-fadeIn" style={{animationDelay: '0.2s'}}>Component Examples</span>
+              <div className="absolute -z-10 top-0 left-0 w-full h-full bg-grid-white/10 opacity-20 animate-pulse-slow"></div>
+            </h1>
+            <p className="text-lg text-muted-foreground animate-fadeIn" style={{animationDelay: '0.4s'}}>
               Explore pre-built component examples and prompts to inspire your next creation.
             </p>
           </div>
 
-          <div className="flex flex-wrap gap-2 mb-8">
-            {categories.map((category) => (
+          <div className="flex flex-wrap gap-2 mb-8 animate-fadeIn" style={{animationDelay: '0.6s'}}>
+            {categories.map((category, index) => (
               <Badge
                 key={category}
                 variant="secondary"
-                className="cursor-pointer hover:bg-primary hover:text-primary-foreground"
+                className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-110"
+                style={{animationDelay: `${0.7 + index * 0.1}s`}}
               >
                 {category}
               </Badge>
@@ -89,8 +98,12 @@ export default function ExamplesPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {examples.map((example) => (
-              <Card key={example.id} className="hover:shadow-lg transition-shadow">
+            {examples.map((example, index) => (
+              <Card 
+                key={example.id} 
+                className="animate-shadow-pulse hover:shadow-lg transition-all duration-300 py-4 hover:-translate-y-1 animate-fadeIn"
+                style={{animationDelay: `${0.8 + index * 0.15}s`}}
+              >
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div>
@@ -113,12 +126,19 @@ export default function ExamplesPage() {
                 <CardContent>
                   <div className="space-y-4">
                     <div>
-                      <Badge variant="outline" className="mb-2">
+                      <Badge 
+                        variant="outline" 
+                        className="mb-2 transition-all duration-300 hover:bg-primary hover:text-primary-foreground"
+                      >
                         {example.category}
                       </Badge>
                       <div className="flex flex-wrap gap-1">
-                        {example.tags.map((tag) => (
-                          <Badge key={tag} variant="secondary" className="text-xs">
+                        {example.tags.map((tag, tagIndex) => (
+                          <Badge 
+                            key={tag} 
+                            variant="secondary" 
+                            className="text-xs transition-all duration-300 hover:scale-110"
+                          >
                             {tag}
                           </Badge>
                         ))}
@@ -130,11 +150,35 @@ export default function ExamplesPage() {
                     </div>
 
                     <div className="flex gap-2">
-                      <Button size="sm" className="flex-1">
+                      <Button 
+                        size="sm" 
+                        className="flex-1 bg-[#058878] hover:bg-[#00bba5] transition-all duration-300 hover:scale-105"
+                        onClick={() => {
+                          copyToClipboard(example.prompt).then((success) => {
+                            if (success) {
+                              toast({
+                                title: "Prompt copied!",
+                                description: "The prompt has been copied to your clipboard.",
+                                variant: "success",
+                              })
+                            } else {
+                              toast({
+                                title: "Copy failed",
+                                description: "Failed to copy the prompt to clipboard.",
+                                variant: "destructive",
+                              })
+                            }
+                          })
+                        }}
+                      >
                         <CopyIcon className="w-4 h-4 mr-2" />
                         Use Prompt
                       </Button>
-                      <Button size="sm" variant="outline">
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        className="transition-all duration-300 hover:scale-105"
+                      >
                         <ExternalLinkIcon className="w-4 h-4" />
                       </Button>
                     </div>

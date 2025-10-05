@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { CodeIcon, LibraryIcon, UserIcon, LogOutIcon, BookOpenIcon, LayersIcon } from "lucide-react"
+import { CodeIcon, LibraryIcon, UserIcon, LogOutIcon, BookOpenIcon, LayersIcon, HomeIcon } from "lucide-react"
 import { AuthModal } from "@/components/auth-modal"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Link from "next/link"
@@ -40,14 +40,23 @@ export function Header() {
               {/* <CodeIcon className="w-5 h-5 text-primary-foreground" /> */}
               <img src="../../ui-logo.png" alt="UI Generator" className="w-full" />
             </div>
-            <span className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">UI Generator</span>
+            <span className="text-xl font-bold bg-gradient-to-l to-blue-500 via-teal-500 from-green-500 text-transparent bg-clip-text block">UI Generator</span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-6">
+             <Link href="/">
+              <Button
+                variant="ghost"
+                className={`text-muted-foreground hover:bg-[#00bba5] hover:text-white ${isActive("/") ? "bg-[#00bba5] text-white" : ""}`}
+              >
+                <HomeIcon className="w-4 h-4 mr-2" />
+                Home
+              </Button>
+            </Link>
             <Link href="/library">
               <Button
                 variant="ghost"
-                className={`text-muted-foreground hover:text-foreground ${isActive("/library") ? "bg-accent text-accent-foreground" : ""}`}
+                className={`text-muted-foreground hover:bg-[#00bba5] hover:text-white ${isActive("/library") ? "bg-[#00bba5] text-white" : ""}`}
               >
                 <LibraryIcon className="w-4 h-4 mr-2" />
                 Library
@@ -56,7 +65,7 @@ export function Header() {
             <Link href="/examples">
               <Button
                 variant="ghost"
-                className={`text-muted-foreground hover:text-foreground ${isActive("/examples") ? "bg-accent text-accent-foreground" : ""}`}
+                className={`text-muted-foreground hover:bg-[#00bba5] hover:text-white ${isActive("/examples") ? "bg-[#00bba5] text-white" : ""}`}
               >
                 <LayersIcon className="w-4 h-4 mr-2" />
                 Examples
@@ -65,7 +74,7 @@ export function Header() {
             <Link href="/docs">
               <Button
                 variant="ghost"
-                className={`text-muted-foreground hover:text-foreground ${isActive("/docs") ? "bg-accent text-accent-foreground" : ""}`}
+                className={`text-muted-foreground hover:bg-[#00bba5] hover:text-white ${isActive("/docs") ? "bg-[#00bba5] text-white" : ""}`}
               >
                 <BookOpenIcon className="w-4 h-4 mr-2" />
                 Docs
@@ -81,15 +90,15 @@ export function Header() {
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" size="sm" className="relative h-8 w-8 rounded-full border border-primary/20 hover:border-primary/50 transition-all duration-300">
                     <Avatar className="h-8 w-8">
-                      <AvatarImage src={user.photoURL || undefined} alt={user.displayName || "User"} />
-                      <AvatarFallback className="bg-gradient-to-r from-primary/20 to-secondary/20">{user.displayName?.[0] || "U"}</AvatarFallback>
+                      <AvatarImage src={user?.photoURL || undefined} alt={user.displayName || "Kuldeep"} />
+                      <AvatarFallback className="bg-gradient-to-r from-primary/20 to-secondary/20">{user?.displayName?.[0] || "K"}</AvatarFallback>
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56 animate-fadeIn">
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
-                      <p className="text-sm font-medium leading-none">{user.displayName || "User"}</p>
+                      <p className="text-sm font-medium leading-none">{user.displayName || "Kuldeep"}</p>
                       <p className="text-xs leading-none text-muted-foreground">{user.email}</p>
                     </div>
                   </DropdownMenuLabel>

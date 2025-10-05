@@ -4,6 +4,8 @@ import type React from "react"
 import { createContext, useContext, useEffect, useState } from "react"
 
 interface User {
+  photoURL: undefined
+  displayName: string
   id: string
   email: string
   name: string
@@ -27,7 +29,7 @@ const mockGoogleAuth = () => {
   return new Promise<{ email: string; name: string; avatar: string }>((resolve) => {
     setTimeout(() => {
       resolve({
-        email: "user@gmail.com",
+        email: "kuldeep@gmail.com",
         name: "Google User",
         avatar: `https://ui-avatars.com/api/?name=Google+User&background=random`,
       })
@@ -99,7 +101,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem("ui-gen-users", JSON.stringify(users))
 
     const { password: _, ...userWithoutPassword } = newUser
-    setUser(userWithoutPassword)
+    setUser({
+      ...userWithoutPassword,
+      photoURL: undefined,
+      displayName: name,
+    })
     localStorage.setItem("ui-gen-user", JSON.stringify(userWithoutPassword))
 
     setIsLoading(false)

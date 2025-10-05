@@ -456,7 +456,7 @@ export const ${componentName || "GeneratedComponent"} = () => {
       {/* Component Categories */}
       <Card className="border-2 border-primary/10 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-background to-primary/5 animate-fadeIn" style={{animationDelay: '0.3s'}}>
         <CardHeader className="bg-gradient-to-r from-primary/10 to-primary/5 border-b border-primary/20">
-          <CardTitle className="flex items-center gap-3 text-xl">
+          <CardTitle className="flex items-center gap-3 text-xl pt-3">
             <div className="p-2 bg-primary/10 rounded-lg">
               <CodeIcon className="w-6 h-6 text-primary animate-pulse" />
             </div>
@@ -633,15 +633,121 @@ export const ${componentName || "GeneratedComponent"} = () => {
                   <div className="bg-muted p-6 rounded-lg border border-primary/10 shadow-inner">
                     <h4 className="font-medium mb-3 text-primary">How to use this component:</h4>
                     <pre className="text-sm text-muted-foreground bg-background/50 p-4 rounded border border-border/50 overflow-x-auto">
-                      {`import { ${componentName || "GeneratedComponent"} } from './components/${componentName || "GeneratedComponent"}'
+                      {(() => {
+                        // Function to detect required props from interface or type definition
+                        const detectRequiredProps = () => {
+                          const requiredProps: string[] = [];
+                          
+                          // Look for interface or type definition with required props
+                          const interfaceMatch = generatedCode.match(/interface\s+(\w+Props)\s*\{([^}]*)\}/s);
+                          const typeMatch = generatedCode.match(/type\s+(\w+Props)\s*=\s*\{([^}]*)\}/s);
+                          
+                          const propsDefinition = interfaceMatch?.[2] || typeMatch?.[2];
+                          
+                          if (propsDefinition) {
+                            // Extract prop names that don't have ? or optional marker
+                            const propLines = propsDefinition.split('\n');
+                            propLines.forEach(line => {
+                              // Match prop name that doesn't have ? after it and before :, and isn't marked as optional in comments
+                              const requiredPropMatch = line.match(/\s*(\w+)\s*:/); 
+                              if (requiredPropMatch && !line.includes('?:') && !line.includes('optional')) {
+                                requiredProps.push(requiredPropMatch[1]);
+                              }
+                            });
+                          }
+                          
+                          return requiredProps;
+                        };
+                        
+                        // Get required props
+                        const requiredProps = detectRequiredProps();
+                        
+                        // Function to get component-specific props based on category
+                        const getCategoryProps = () => {
+                          let props = '';
+                          
+                          switch(selectedCategory) {
+                            case "Cards":
+                              props = 'title="Example Card" price="$99" features={["Feature 1", "Feature 2"]} buttonText="Get Started"';
+                              break;
+                            case "Buttons":
+                              props = 'variant="primary" onClick={() => console.log("Button clicked")} disabled={false}';
+                              break;
+                            case "Navigation":
+                              props = 'items={[{label: "Home", href: "/"}, {label: "About", href: "/about"}]} activeItem="Home"';
+                              break;
+                            case "Forms":
+                              props = 'onSubmit={(data) => console.log(data)} defaultValues={{name: "", email: ""}}';
+                              break;
+                            case "Data Display":
+                              props = 'data={[{id: 1, name: "Item 1"}, {id: 2, name: "Item 2"}]} columns={["id", "name"]}';
+                              break;
+                            case "Layout":
+                              props = 'title="Section Title" subtitle="Section description goes here"';
+                              break;
+                            default:
+                              props = '';
+                          }
+                          
+                          // Handle any remaining required props not covered by category-specific props
+                          const categoryPropNames = props.match(/\w+=/g)?.map(p => p.replace('=', '')) || [];
+                          const missingRequiredProps = requiredProps.filter(prop => !categoryPropNames.includes(prop));
+                          
+                          if (missingRequiredProps.length > 0) {
+                            const additionalProps = missingRequiredProps.map(prop => {
+                              // Generate appropriate values based on prop name
+                              if (prop.includes('children')) return '';
+                              if (prop.includes('id')) return `${prop}="example-id"`;
+                              if (prop.includes('name')) return `${prop}="Example Name"`;
+                              if (prop.includes('title')) return `${prop}="Example Title"`;
+                              if (prop.includes('description')) return `${prop}="This is an example description"`;
+                              if (prop.includes('url') || prop.includes('link') || prop.includes('href')) return `${prop}="https://example.com"`;
+                              if (prop.includes('image') || prop.includes('img') || prop.includes('avatar')) return `${prop}="/placeholder.jpg"`;
+                              if (prop.includes('icon')) return `${prop}="StarIcon"`;
+                              if (prop.includes('color') || prop.includes('variant')) return `${prop}="primary"`;
+                              if (prop.includes('size')) return `${prop}="medium"`;
+                              if (prop.includes('enabled') || prop.includes('active') || prop.includes('selected')) return `${prop}={true}`;
+                              if (prop.includes('disabled')) return `${prop}={false}`;
+                              if (prop.includes('count') || prop.includes('index') || prop.includes('level')) return `${prop}={1}`;
+                              if (prop.includes('items') || prop.includes('options') || prop.includes('data')) return `${prop}={["Item 1", "Item 2"]}`;
+                              return `${prop}="Example Value"`;
+                            }).join(' ');
+                            
+                            return props ? `${props} ${additionalProps}` : additionalProps;
+                          }
+                          
+                          return props;
+                        };
+
+                        // Generic props that might apply to any component
+                        const genericProps = 'className="w-full max-w-md mx-auto"';
+                        
+                        // Determine if component might have children based on category or required props
+                        const hasChildren = ['Layout', 'Navigation'].includes(selectedCategory) || 
+                                           requiredProps.some(prop => prop.includes('children'));
+                        
+                        // Check if the generated code uses default export or named export
+                        const isDefaultExport = generatedCode.includes(`export default ${componentName}`) || 
+                                               generatedCode.includes('export default function') || 
+                                               generatedCode.includes('export default class') || 
+                                               generatedCode.includes('export default (') ||
+                                               generatedCode.includes('export default const');
+                        
+                        return `${isDefaultExport 
+                          ? `import ${componentName || "GeneratedComponent"} from './components/${componentName || "GeneratedComponent"}'` 
+                          : `import { ${componentName || "GeneratedComponent"} } from './components/${componentName || "GeneratedComponent"}'`}
 
 export default function App() {
   return (
-    <div>
-      <${componentName || "GeneratedComponent"} />
+    <div className="container mx-auto p-4">
+      {/* Example usage with props based on component type */}
+      <${componentName || "GeneratedComponent"} ${getCategoryProps()} ${genericProps}${hasChildren ? `>
+        {/* Child content can go here */}
+      </${componentName || "GeneratedComponent"}>` : ' />'}
     </div>
   )
-}`}
+}`
+                      })()}
                     </pre>
                   </div>
                 </TabsContent>

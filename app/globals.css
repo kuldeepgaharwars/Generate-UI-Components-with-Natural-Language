@@ -45,6 +45,12 @@
   to { transform: scale(1); }
 }
 
+@keyframes shadowPulse {
+  0% { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
+  50% { box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); }
+  100% { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
+}
+
 .animate-fadeIn {
   animation: fadeIn 0.5s ease-out forwards;
 }
@@ -77,6 +83,10 @@
   animation: scale 0.5s ease-out forwards;
 }
 
+.animate-shadow-pulse {
+  animation: shadowPulse 3s ease-in-out infinite;
+}
+
 .bg-grid-white\/10 {
   background-image: linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
                     linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
@@ -93,11 +103,11 @@
   --popover-foreground: oklch(0.278 0 0); /* #374151 - Popover text */
   --primary: oklch(0.506 0.177 142.5); /* #15803d - Primary green */
   --primary-foreground: oklch(1 0 0); /* #ffffff - Text on primary */
-  --secondary: oklch(0.784 0.221 110.7); /* #84cc16 - Bright green accent */
+  --secondary: #00bba5; /* teal color as requested */
   --secondary-foreground: oklch(1 0 0); /* #ffffff - Text on secondary */
   --muted: oklch(0.984 0.024 142.5); /* #f0fdf4 - Muted background */
   --muted-foreground: oklch(0.278 0 0); /* #374151 - Muted text */
-  --accent: oklch(0.784 0.221 110.7); /* #84cc16 - Accent color */
+  --accent: #00bba5; /* teal color as requested */
   --accent-foreground: oklch(0.278 0 0); /* #374151 - Text on accent */
   --destructive: oklch(0.577 0.245 27.325); /* #dc2626 - Destructive red */
   --destructive-foreground: oklch(1 0 0); /* #ffffff - Text on destructive */
@@ -114,7 +124,7 @@
   --sidebar-foreground: oklch(0.278 0 0); /* #374151 - Sidebar text */
   --sidebar-primary: oklch(0.506 0.177 142.5); /* #15803d - Primary in sidebar */
   --sidebar-primary-foreground: oklch(1 0 0); /* #ffffff - Text on sidebar primary */
-  --sidebar-accent: oklch(0.784 0.221 110.7); /* #84cc16 - Sidebar accent */
+  --sidebar-accent: #00bba5; /* teal color as requested */
   --sidebar-accent-foreground: oklch(0.278 0 0); /* #374151 - Text on sidebar accent */
   --sidebar-border: oklch(0.922 0 0); /* #e5e7eb - Sidebar border */
   --sidebar-ring: oklch(0.506 0.177 142.5 / 0.5); /* Sidebar focus ring */
@@ -122,38 +132,38 @@
 
 .dark {
   /* Updated dark mode tokens to complement the green theme */
-  --background: oklch(0.145 0 0);
+  --background: #1f2937; /* bg-gray-800 */
   --foreground: oklch(0.985 0 0);
-  --card: oklch(0.18 0.012 142.5);
+  --card: #374151; /* bg-gray-700 */
   --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.145 0 0);
+  --popover: #1f2937; /* bg-gray-800 */
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.784 0.221 110.7); /* Bright green in dark mode */
-  --primary-foreground: oklch(0.145 0 0);
-  --secondary: oklch(0.506 0.177 142.5); /* Darker green for secondary */
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.18 0.012 142.5);
+  --primary: #0fa5a5; /* bg-blue-500 */
+  --primary-foreground: #ffffff; /* White text */
+  --secondary: #00bba5; /* teal color as requested */
+  --secondary-foreground: #ffffff; /* White text */
+  --muted: #374151; /* bg-gray-700 */
   --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.784 0.221 110.7);
-  --accent-foreground: oklch(0.145 0 0);
+  --accent: #00bba5; /* teal color as requested */
+  --accent-foreground: #ffffff; /* White text */
   --destructive: oklch(0.396 0.141 25.723);
   --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.269 0 0);
-  --input: oklch(0.269 0 0);
-  --ring: oklch(0.784 0.221 110.7 / 0.5);
+  --border: #4b5563; /* bg-gray-600 */
+  --input: #374151; /* bg-gray-700 */
+  --ring: #3b82f6 / 0.5; /* bg-blue-500 with opacity */
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.18 0.012 142.5);
+  --sidebar: #1f2937; /* bg-gray-800 */
   --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.784 0.221 110.7);
-  --sidebar-primary-foreground: oklch(0.145 0 0);
-  --sidebar-accent: oklch(0.506 0.177 142.5);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0 0);
-  --sidebar-ring: oklch(0.784 0.221 110.7 / 0.5);
+  --sidebar-primary: #3b82f6; /* bg-blue-500 */
+  --sidebar-primary-foreground: #ffffff; /* White text */
+  --sidebar-accent: #00bba5; /* teal color as requested */
+  --sidebar-accent-foreground: #ffffff; /* White text */
+  --sidebar-border: #4b5563; /* bg-gray-600 */
+  --sidebar-ring: #3b82f6 / 0.5; /* bg-blue-500 with opacity */
 }
 
 @theme inline {

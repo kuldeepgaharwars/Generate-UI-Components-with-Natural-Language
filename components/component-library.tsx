@@ -138,7 +138,7 @@ export function ComponentLibrary() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <Card className="animate-fadeIn" style={{animationDelay: '0.1s'}}>
+        <Card className="animate-fadeIn py-4" style={{animationDelay: '0.1s'}}>
           <CardContent className="p-4 hover:bg-primary/5 transition-all duration-300">
             <div className="flex items-center gap-2">
               <CodeIcon className="w-5 h-5 text-primary animate-pulse" />
@@ -150,7 +150,7 @@ export function ComponentLibrary() {
           </CardContent>
         </Card>
 
-        <Card className="animate-fadeIn" style={{animationDelay: '0.2s'}}>
+        <Card className="animate-fadeIn py-4" style={{animationDelay: '0.2s'}}>
           <CardContent className="p-4 hover:bg-primary/5 transition-all duration-300">
             <div className="flex items-center gap-2">
               <FolderIcon className="w-5 h-5 text-primary animate-pulse" />
@@ -162,7 +162,7 @@ export function ComponentLibrary() {
           </CardContent>
         </Card>
 
-        <Card className="animate-fadeIn" style={{animationDelay: '0.3s'}}>
+        <Card className="animate-fadeIn py-4" style={{animationDelay: '0.3s'}}>
           <CardContent className="p-4 hover:bg-primary/5 transition-all duration-300">
             <div className="flex items-center gap-2">
               <TagIcon className="w-5 h-5 text-primary animate-pulse" />
@@ -176,7 +176,7 @@ export function ComponentLibrary() {
       </div>
 
       {filteredComponents.length === 0 ? (
-        <Card>
+        <Card className="py-4">
           <CardContent className="p-12 text-center">
             <CodeIcon className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
             <h3 className="text-lg font-semibold mb-2">No Components Found</h3>
@@ -193,7 +193,7 @@ export function ComponentLibrary() {
           {filteredComponents.map((component, index) => (
             <Card 
               key={component.id} 
-              className="group hover:shadow-lg transition-all duration-300 hover:translate-y-[-5px] animate-fadeIn border-primary/10 hover:border-primary/30" 
+              className="group py-4 hover:shadow-lg transition-all duration-300 hover:translate-y-[-5px] animate-fadeIn border-primary/10 hover:border-primary/30" 
               style={{animationDelay: `${0.1 + index * 0.05}s`}}
             >
               <CardHeader className="pb-3 bg-gradient-to-r from-primary/5 to-transparent">

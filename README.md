@@ -1,4 +1,4 @@
-# UI Component Generator with Natural Language
+# Empty conversation
 
 *Automatically synced with your [v0.app](https://v0.app) deployments*
 
@@ -9,18 +9,6 @@
 
 This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
 Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
-
-## Important: API Key Setup
-
-This application requires a GROQ API key to function properly. Follow these steps to set it up:
-
-1. Create a `.env` file in the root directory of your project
-2. Add your GROQ API key to the file:
-   ```
-   GROQ_API_KEY=your_groq_api_key_here
-   ```
-3. Get your GROQ API key from [groq.com](https://console.groq.com/keys)
-4. Restart your development server after adding the API key
 
 ## Deployment
 
